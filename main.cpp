@@ -197,7 +197,7 @@ int main()
     long long whole_len = itc_len(whole_bin);
     long long exponent  = 0;
     if ( whole == 0 || whole_bin == "0"){
-        long long i = 0;
+            long long i = 0;
         while ( dec_bin[i] != '1'){
             exponent++;
             i++;
@@ -224,7 +224,7 @@ int main()
     mantissa = itc_slice_str(mantissa, 0, 22);
     long long len_mantissa = itc_len(mantissa);
     if ( len_mantissa < 23){
-       for ( i = 0; i < 23 - len_mantissa;i++){
+       for ( i = 0; itc_len(mantissa) != 23 ;i++){
         mantissa += "0";
     }
     }
@@ -243,3 +243,4 @@ int main()
     }
     return 0;
 }
+
