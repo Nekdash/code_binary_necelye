@@ -197,6 +197,7 @@ int main()
     long long whole_len = itc_len(whole_bin);
     long long exponent  = 0;
     if ( whole == 0 || whole_bin == "0"){
+        long long i = 0;
         while ( dec_bin[i] != '1'){
             exponent++;
             i++;
