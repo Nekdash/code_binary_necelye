@@ -109,10 +109,14 @@ int main()
 
 
     ///set the first bit - sign
-    int sign = 0;
+    string sign = "0";
     if  (str[0] == '-'){
         str = itc_slice_str(str, 1, itc_len(str));
-        sign = 1;
+        sign = "1";
+    }
+    if ( str[0] == "+"){
+        str = itc_slice_str(str, 1, itc_len(str));
+        sign = "0";
     }
     //cout  << "sign:  " << sign << endl;
 
@@ -237,7 +241,8 @@ int main()
     }
     //cout << "EXPONENT IN BIN:  " << exp << endl << endl;
     //cout << "RESULT" << endl;
-    cout << sign << exp << mantissa << endl;
+    string fin = sign + exp + mantissa;
+    cout << fin << endl;
 
 
     }
