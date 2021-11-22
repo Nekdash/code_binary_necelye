@@ -106,7 +106,7 @@ int main()
     }else if (str == "-0" || str == "-0.0" || str == "-0,0"){
         cout << "00000000000000000000000000000000";}
         else if (str == "nan" || str == "NaN" || str == "NAN" || str == "-nan" || str == "-NaN" || str == "-NAN")
-        {bin_num += "1111111111111111111111111111111";
+        {cout << "1111111111111111111111111111111";
     }else{
 
 
@@ -183,11 +183,11 @@ int main()
 
     string whole_bin, dec_bin;
     whole_bin = to_bin(whole);
-    //cout << "WHOLE TO BINARY:  " << whole_bin << endl;
+    cout << "WHOLE TO BINARY:  " << whole_bin << endl;
 
     /// convert dec to binary
     dec_bin = dec_bin_f(dec, len_dec);
-    //cout << "DEC TO BINARY:  " << dec_bin << endl;
+    cout << "DEC TO BINARY:  " << dec_bin << endl;
     //cout << endl;
     //cout << endl;
     //cout << "Whole bin:" << endl;
