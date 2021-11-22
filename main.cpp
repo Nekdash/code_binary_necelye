@@ -13,9 +13,6 @@ long long itc_len(string str){
     }
     return i;
 }
-
-
-/// to-power function
 long long ipow(int number, int pow){
     long long res = 1;
     for(int i = 0; i < pow;i++){
@@ -24,9 +21,6 @@ long long ipow(int number, int pow){
     return res;
 }
 
-
-
-/// slice function
 string itc_slice_str(string str, int start, int endd){
     string res ="";
     if ( endd >= itc_len(str)){
@@ -47,10 +41,6 @@ string itc_slice_str(string str, int start, int endd){
     return "-1";
 }
 
-
-
-
-
 /// whole part to binary converter
 string to_bin(long long number){
 
@@ -68,7 +58,6 @@ string to_bin(long long number){
     return res;
 
 }
-
 ///dec to binary converter
 
 string dec_bin_f(long long num, long long len_dec){
@@ -86,116 +75,84 @@ string dec_bin_f(long long num, long long len_dec){
 
 }
 
-
-
 /// ====== MAIN ======
 int main()
 {
-    /// get the number
     string str;
-    //cout << "Enter the number" << endl;
     cin >> str;
 
-    //cout <<"Your Number: " <<  str << endl;
-    if (str == "inf" || str == "INF"){
+    if (str == "inf" || str == "INF" || str == "Inf" || str == "infinity" || str == "INFINITY" || str == "Infinity"){
         cout << "01111111100000000000000000000000";
-    }else if ( str == "-inf" || str == "-INF"){
+    }else if ( str == "-inf" || str == "-INF" ||  str == "-inf" || str == "-INF" || str == "-Inf" || str == "-infinity" || str == "-INFINITY" || str == "-Infinity"){
         cout << "11111111100000000000000000000000";
     } else if ( str == "0" || str == "0.0" || str == "0,0" ){
         cout << "00000000000000000000000000000000";
     }else if (str == "-0" || str == "-0.0" || str == "-0,0"){
-        cout << "00000000000000000000000000000000";}
+        cout << "10000000000000000000000000000000";}
         else if (str == "nan" || str == "NaN" || str == "NAN" || str == "-nan" || str == "-NaN" || str == "-NAN")
         {cout << "1111111111111111111111111111111";
     }else{
 
 
     ///set the first bit - sign
-    string sign = "0";
+    int sign = 0;
     if  (str[0] == '-'){
         str = itc_slice_str(str, 1, itc_len(str));
-        sign = "1";
-    }
-    if ( str[0] == "+"){
+        sign = 1;
+    }else if(str[0] == '+'){
+        sign = 0;
         str = itc_slice_str(str, 1, itc_len(str));
-        sign = "0";
     }
     //cout  << "sign:  " << sign << endl;
-
-
 
     /// set the numbers
     long long whole = 0, dec = 0, i =0;
     string whole_str, dec_str;
     int ch = 0;
 
-
-
-
-
     /// divide into two parts
+    bool whole_check = true;
     for (i = 0; str[i] != '\0'; i++){
         if ( str[i] == '.' || str[i] == ','){
             whole_str = itc_slice_str(str, 0, i-1);
             dec_str = itc_slice_str(str, i+1, itc_len(str));
+            if(i == itc_len(str) - 1){
+                dec_str = "0";}
+            whole_check = false;
         }
     }
-    //cout << "Whole_str:  " << whole_str<< endl;
-    //cout << "Dec_str:   " << dec_str << endl;
-
-
+            if(whole_check){
+                whole_str = str;
+                dec_str = "0";
+            }
 
 
     /// convert whole to number
 
-    //cout << endl;
-    //cout << endl;
-    //cout << "CONVERTING WHOLE TO NUMBER: START" << endl;
-
     for(i = 0 ; i < itc_len(whole_str); i++){
 
             ch = whole_str[i];
-            //cout << "Char taken:  " << ch << endl;
             ch -= 48;
-            //cout << "Convert to num:   " << ch << endl;
             whole = whole*10 + ch;
-            //cout << "WHOLE: " << whole << endl;
-            //cout << endl;
     }
-
-    //cout << "CONVERTING WHOLE TO NUMBER: END" << endl;
-    //cout << endl;
-    //cout << endl;
 
     /// convert dec to number
     ///(lost zeros will be kept in track by len_dec)
     long long len_dec = itc_len(dec_str);
 
-    //cout << "LEN DEC:  " << len_dec << endl;
+    
     for  ( i = 0; i < len_dec; i++){
         ch = dec_str[i];
         ch -= 48;
         dec  = dec*10 + ch;
     }
-    //cout << "DEC:   " << dec << endl;
-    //cout << endl;
     /// convert parts to binary
 
     string whole_bin, dec_bin;
     whole_bin = to_bin(whole);
-    cout << "WHOLE TO BINARY:  " << whole_bin << endl;
 
     /// convert dec to binary
     dec_bin = dec_bin_f(dec, len_dec);
-    cout << "DEC TO BINARY:  " << dec_bin << endl;
-    //cout << endl;
-    //cout << endl;
-    //cout << "Whole bin:" << endl;
-    //cout << whole_bin <<endl;
-    //cout << endl;
-    //cout << "Dec bin:" << endl;
-    //cout << dec_bin << endl;
-    //cout << endl;
 
 
     /// ===== CREATE MANTISSA AND COUNT EXPONENT ==========
@@ -208,9 +165,7 @@ int main()
             exponent++;
             i++;
         }
-        //cout << "EXPONENT:  " << exponent << endl;
         mantissa  = itc_slice_str(dec_bin, exponent, itc_len(dec_bin));
-        //cout << "MANTISSA:  " << mantissa << endl;
         exponent = 127 - exponent;
     }
     else if(whole_bin == "1"){
@@ -220,10 +175,8 @@ int main()
     else{
 
         mantissa = itc_slice_str(whole_bin, 1, itc_len(whole_str)+1) + dec_bin;
-        //cout << "MANTISSA:  " << mantissa << endl;
 
         exponent = whole_len - 1;
-        //cout << "EXPONENT:  " << exponent << endl;
         exponent = 127 + exponent;
     }
 
@@ -234,19 +187,13 @@ int main()
         mantissa += "0";
     }
     }
-    //cout << "MANTISSA FULL:  " << mantissa << endl;
     string exp = to_bin(exponent);
     exp = itc_slice_str(exp, 0, itc_len(exp));
     if ( itc_len(exp) < 8){
         for ( int i = 0; itc_len(exp) < 8; i++)
             exp = "0" + exp;
     }
-    //cout << "EXPONENT IN BIN:  " << exp << endl << endl;
-    //cout << "RESULT" << endl;
-    string fin = sign + exp + mantissa;
-    cout << fin << endl;
-
-
+    cout << sign << exp << mantissa << endl;
     }
     return 0;
 }
