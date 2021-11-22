@@ -93,7 +93,7 @@ int main()
 {
     /// get the number
     string str;
-    cout << "Enter the number" << endl;
+    //cout << "Enter the number" << endl;
     cin >> str;
 
     //cout <<"Your Number: " <<  str << endl;
@@ -101,10 +101,12 @@ int main()
         cout << "01111111100000000000000000000000";
     }else if ( str == "-inf" || str == "-INF"){
         cout << "11111111100000000000000000000000";
-    } else if ( str == "0"){
+    } else if ( str == "0" || str == "0.0" || str == "0,0" ){
         cout << "00000000000000000000000000000000";
-    }else if (str == "-0"){
-        cout << "10000000000000000000000000000000";
+    }else if (str == "-0" || str == "-0.0" || str == "-0,0"){
+        cout << "00000000000000000000000000000000";}
+        else if (str == "nan" || str == "NaN" || str == "NAN" || str == "-nan" || str == "-NaN" || str == "-NAN")
+        {bin_num += "1111111111111111111111111111111";
     }else{
 
 
