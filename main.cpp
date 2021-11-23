@@ -62,14 +62,15 @@ string to_bin(long long number){
 
 string dec_bin_f(long long num, long long len_dec){
     string res ="";
-    for ( int i = 0; i < 26; i++){
+    long long ipowlen = ipow(10, len_dec);
+    for ( int i = 0; i < 40 + len_dec + 100; i++){
         num = (num*2);
-        if ( num /   ipow(10, len_dec) == 1){
+        if ( num /   ipowlen == 1){
             res = res +"1";
         }else{
             res = res + "0";
         }
-        num = num %   ipow(10, len_dec);
+        num = num %   ipowlen;
     }
     return res;
 
@@ -140,7 +141,7 @@ int main()
     ///(lost zeros will be kept in track by len_dec)
     long long len_dec = itc_len(dec_str);
 
-    
+
     for  ( i = 0; i < len_dec; i++){
         ch = dec_str[i];
         ch -= 48;
@@ -174,7 +175,7 @@ int main()
     }
     else{
 
-        mantissa = itc_slice_str(whole_bin, 1, itc_len(whole_str)+1) + dec_bin;
+        mantissa = itc_slice_str(whole_bin, 1, itc_len(whole_bin)+1) + dec_bin;
 
         exponent = whole_len - 1;
         exponent = 127 + exponent;
@@ -197,4 +198,3 @@ int main()
     }
     return 0;
 }
-
